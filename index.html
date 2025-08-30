@@ -1,0 +1,3070 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Dairy Farm Hero</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0d6efd;
+            --primary-dark: #0a58ca;
+            --primary-light: #6ea8fe;
+            --secondary-color: #28a745;
+            --secondary-light: #48c774;
+            --accent-color: #ffc107;
+            --accent-light: #ffed4e;
+            --gradient-primary: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+            --gradient-hero: linear-gradient(135deg, #0d6efd 0%, #6ea8fe 50%, #a8d8ff 100%);
+            --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+            --text-dark: #2c3e50;
+            --text-light: #6c757d;
+        }
+
+        /* Additional navbar JavaScript required styles */
+        .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
+            background: transparent;
+        }
+
+        .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon::before {
+            transform: rotate(45deg);
+            top: 0;
+        }
+
+        .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon::after {
+            transform: rotate(-45deg);
+            top: 0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            background: #0a0a0a;
+        }
+
+        /* Premium Navbar Styles */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            padding: 1rem 0;
+            background: transparent;
+        }
+
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 0.5rem 0;
+        }
+
+        .navbar-brand {
+            font-size: 2rem;
+            font-weight: 800;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled .navbar-brand {
+            color: var(--primary-color);
+        }
+
+         /* This ensures nothing spills out of the logo container */
+        .logo {
+            padding: 5px; /* Adds a little space around the logo image */
+            width: 100px;
+            height: 100px;
+        }
+
+        .logo img {
+            width: 100%; /* Makes the image take the full width of the container */
+            height: 100%; /* Makes the image take the full height of the container */
+            
+            /* This is the key property: it scales your logo to fit inside */
+            /* the container without stretching or distorting it. */
+            object-fit: contain; 
+        }
+
+        .navbar-nav {
+            margin-left: auto;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: white;
+            font-weight: 500;
+            font-size: 1rem;
+            padding: 10px 20px;
+            margin: 0 5px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            text-decoration: none;
+        }
+
+        .navbar.scrolled .nav-link {
+            color: var(--text-dark);
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            opacity: 0;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-link:hover::before,
+        .nav-link.active::before {
+            opacity: 1;
+        }
+
+        .navbar.scrolled .nav-link::before {
+            background: var(--gradient-primary);
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: black !important; 
+            transform: translateY(-2px);
+        }
+
+        .navbar.scrolled .nav-link:hover,
+        .navbar.scrolled .nav-link.active {
+            color: black !important;
+        }
+
+        .nav-link.btn-sample {
+            background: var(--gradient-primary);
+            color: white;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(13, 110, 253, 0.3);
+            border: none;
+        }
+
+        .nav-link.btn-sample:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(13, 110, 253, 0.4);
+            color: white;
+        }
+
+        .navbar-toggler {
+            border: none;
+            padding: 5px 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .navbar.scrolled .navbar-toggler {
+            background: rgba(13, 110, 253, 0.1);
+        }
+
+        .navbar-toggler-icon {
+            background-image: none;
+            width: 25px;
+            height: 20px;
+            position: relative;
+        }
+
+        .navbar-toggler-icon::before,
+        .navbar-toggler-icon::after,
+        .navbar-toggler-icon {
+            background: white;
+        }
+
+        .navbar.scrolled .navbar-toggler-icon::before,
+        .navbar.scrolled .navbar-toggler-icon::after,
+        .navbar.scrolled .navbar-toggler-icon {
+            background: var(--primary-color);
+        }
+
+        .navbar-toggler-icon,
+        .navbar-toggler-icon::before,
+        .navbar-toggler-icon::after {
+            display: block;
+            width: 25px;
+            height: 3px;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-toggler-icon::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 0;
+        }
+
+        .navbar-toggler-icon::after {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 0;
+        }
+
+        /* Mobile Menu */
+        .navbar-collapse {
+            /* background: rgba(255, 255, 255, 0.95); */
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            margin-top: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (max-width: 991px) {
+            .navbar-nav {
+                margin-left: 0;
+                text-align: center;
+            }
+
+            .nav-link {
+                color: var(--text-dark);
+                margin: 5px 0;
+                width: 100%;
+                text-align: center;
+            }
+
+            .nav-link::before {
+                background: var(--gradient-primary);
+            }
+        }
+
+        .hero-section {
+            padding-top: 150px;
+            padding-bottom: 30px;
+            min-height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, 
+                #0d6efd 0%, 
+                #4d94ff 25%, 
+                #80b3ff 50%, 
+                #6ea8fe 75%, 
+                #a8d8ff 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            overflow: hidden;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                135deg,
+                rgba(10, 10, 20, 0.8) 0%,
+                rgba(25, 25, 50, 0.6) 50%,
+                rgba(10, 10, 20, 0.9) 100%
+            );
+            backdrop-filter: blur(2px);
+        }
+
+        .hero-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 20s infinite linear;
+        }
+
+        .particle:nth-child(1) { width: 4px; height: 4px; top: 10%; left: 10%; animation-delay: 0s; }
+        .particle:nth-child(2) { width: 6px; height: 6px; top: 20%; left: 80%; animation-delay: 3s; }
+        .particle:nth-child(3) { width: 3px; height: 3px; top: 60%; left: 20%; animation-delay: 6s; }
+        .particle:nth-child(4) { width: 5px; height: 5px; top: 80%; left: 70%; animation-delay: 9s; }
+        .particle:nth-child(5) { width: 2px; height: 2px; top: 30%; left: 60%; animation-delay: 12s; }
+        .particle:nth-child(6) { width: 4px; height: 4px; top: 70%; left: 10%; animation-delay: 15s; }
+
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero-badge {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            padding: 12px 24px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+            animation: slideInLeft 1s ease 0.2s both;
+        }
+
+        .hero-badge:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .hero-badge i {
+            color: #a8d8ff;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 800;
+            line-height: 1.1;
+            color: white;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #ffffff 0%, #f0f8ff 50%, #e6f3ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: slideInRight 1s ease 0.4s both;
+            position: relative;
+        }
+
+        .hero-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #0d6efd, #6ea8fe);
+            border-radius: 2px;
+            animation: slideInRight 1s ease 0.8s both;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+            margin-bottom: 3rem;
+            animation: slideInLeft 1s ease 0.6s both;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 4rem;
+            animation: slideInUp 1s ease 0.8s both;
+        }
+
+        .btn-premium {
+            background: linear-gradient(135deg, #0d6efd 0%, #6ea8fe 100%);
+            border: none;
+            color: white;
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(13, 110, 253, 0.3);
+        }
+
+        .btn-premium::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transition: all 0.5s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        .btn-premium:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-premium:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(13, 110, 253, 0.4);
+        }
+
+        .btn-glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-glass:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(255, 255, 255, 0.1);
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            animation: slideInUp 1s ease 1s both;
+        }
+
+        .stat-item {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 1.5rem 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: white;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+        }
+
+        .hero-image-container {
+            position: relative;
+            z-index: 10;
+            animation: slideInRight 1s ease 0.5s both;
+        }
+
+        .hero-main-image {
+            border-radius: 30px;
+            /* box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3); */
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-main-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 50%, rgba(255, 255, 255, 0.1) 100%);
+            pointer-events: none;
+        }
+
+        .hero-main-image:hover {
+            transform: scale(1.05) rotateY(5deg) rotateX(5deg);
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.4);
+        }
+
+        .floating-card {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 1.5rem 2rem;
+            border-radius: 20px;
+            color: white;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: floatCard 4s ease-in-out infinite;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        .floating-card i {
+            font-size: 1.5rem;
+            color: #6ea8fe;
+        }
+
+        .card-1 {
+            top: 10%;
+            right: -15%;
+            animation-delay: 0s;
+        }
+
+        .card-2 {
+            bottom: 30%;
+            left: -20%;
+            animation-delay: 1.5s;
+        }
+
+        .card-3 {
+            top: 60%;
+            right: -10%;
+            animation-delay: 3s;
+        }
+
+        @keyframes floatCard {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(2deg); }
+        }
+
+        .geometric-shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .shape {
+            position: absolute;
+            opacity: 0.1;
+            animation: shapeFloat 20s infinite linear;
+        }
+
+        .shape-1 {
+            top: 20%;
+            left: 5%;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(45deg, #0d6efd, #6ea8fe);
+            border-radius: 20px;
+            animation-delay: 0s;
+        }
+
+        .shape-2 {
+            top: 60%;
+            right: 10%;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, #6ea8fe, #a8d8ff);
+            border-radius: 50%;
+            animation-delay: 5s;
+        }
+
+        .shape-3 {
+            bottom: 20%;
+            left: 20%;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #0d6efd, #4d94ff);
+            transform: rotate(45deg);
+            animation-delay: 10s;
+        }
+
+        @keyframes shapeFloat {
+            0% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-30px) rotate(120deg); }
+            66% { transform: translateY(-60px) rotate(240deg); }
+            100% { transform: translateY(0px) rotate(360deg); }
+        }
+
+        /* Animation Keyframes */
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-stats {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+            }
+            
+            .btn-premium, .btn-glass {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .floating-card {
+                display: none;
+            }
+            
+            .hero-title {
+                font-size: 3rem;
+                margin-bottom: 1rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+                margin-bottom: 2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-section {
+                padding-top: 100px !important;
+                padding: 2rem 0;
+            }
+            
+            .stat-number {
+                font-size: 2rem;
+            }
+            .logo {
+            padding: 5px; /* Adds a little space around the logo image */
+            width: 60px;
+            height: 60px;
+           }
+        }
+
+
+/* ============================================ */
+        /* Enhanced About Section CSS            */
+        /* ============================================ */
+
+        /* Main Section Styling with Bright Background */
+        .about-section-enhanced {
+            padding: 120px 0;
+            background: linear-gradient(180deg, #eef7ff 0%, #ffffff 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Animated Background Blobs */
+        .blob {
+            position: absolute;
+            opacity: 0.6;
+            filter: blur(80px);
+            z-index: 0;
+            animation: floatAnimation 25s infinite alternate ease-in-out;
+        }
+
+        .blob1 {
+            width: 400px;
+            height: 400px;
+            top: -100px;
+            left: -150px;
+            background: rgba(13, 110, 253, 0.1);
+            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+        }
+
+        .blob2 {
+            width: 350px;
+            height: 350px;
+            bottom: -50px;
+            right: -100px;
+            background: rgba(40, 167, 69, 0.1);
+            border-radius: 50% 50% 30% 70% / 60% 40% 60% 40%;
+            animation-delay: 3s;
+        }
+        
+        .blob3 {
+            width: 250px;
+            height: 250px;
+            top: 50%;
+            right: 20%;
+            background: rgba(255, 193, 7, 0.08);
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            animation-delay: 6s;
+        }
+        
+        /* Keyframe animation for floating blobs */
+        @keyframes floatAnimation {
+            0% { transform: translateY(0px) rotate(0deg) scale(1); }
+            100% { transform: translateY(40px) rotate(180deg) scale(1.1); }
+        }
+
+        /* Ensure content is above the blobs */
+        .about-section-enhanced .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Enhanced Typography */
+        .section-title-enhanced {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.8rem, 6vw, 4rem);
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+        
+        .section-title-enhanced .highlight-text {
+            background: linear-gradient(120deg, var(--primary-light), var(--primary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle-enhanced {
+            font-size: 1.15rem;
+            color: var(--text-light);
+            line-height: 1.8;
+            animation: fadeInUp 0.8s ease 0.2s forwards;
+            opacity: 0; /* Initially hidden for animation */
+        }
+
+        /* Enhanced Image Wrapper */
+        .about-image-wrapper-enhanced {
+            position: relative;
+            border-radius: 30px;
+            box-shadow: 0 30px 60px -10px rgba(0, 0, 0, 0.15);
+            transform: perspective(1500px) rotateY(-10deg) rotateX(5deg) scale(0.95);
+            transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+            animation: slideInLeft 1s ease forwards;
+        }
+
+        .about-image-wrapper-enhanced:hover {
+            transform: perspective(1500px) rotateY(0) rotateX(0) scale(1);
+            box-shadow: 0 45px 90px -15px rgba(13, 110, 253, 0.25);
+        }
+
+        .about-image-wrapper-enhanced img {
+            border-radius: 30px;
+            width: 100%;
+        }
+
+        /* Shine effect on image hover */
+        .image-shine-effect {
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(100deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%);
+            transition: left 0.8s ease-in-out;
+        }
+        .about-image-wrapper-enhanced:hover .image-shine-effect {
+            left: 100%;
+        }
+
+        /* Floating card on image */
+        .image-overlay-card-enhanced {
+            position: absolute;
+            bottom: 25px;
+            left: 25px;
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            border-radius: 20px;
+            padding: 1.25rem 1.5rem;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+            transform: translateY(0);
+        }
+        .about-image-wrapper-enhanced:hover .image-overlay-card-enhanced {
+            transform: translateY(-15px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+        .image-overlay-card-enhanced i {
+            font-size: 2rem;
+            color: var(--primary-dark);
+        }
+
+        /* Enhanced Content & Feature Cards */
+        .about-content-enhanced {
+            animation: slideInRight 1s ease forwards;
+        }
+
+        .content-title-enhanced {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.8rem, 4vw, 2.4rem);
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+
+        .features-grid {
+            margin-top: 2rem;
+            display: grid;
+            gap: 1.25rem;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 20px;
+            border: 1px solid #e9ecef;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+            display: flex;
+            align-items: flex-start;
+            gap: 1.25rem;
+            transition: all 0.3s ease-out;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px -10px rgba(13, 110, 253, 0.15);
+            border-color: var(--primary-light);
+        }
+
+        .feature-icon-enhanced {
+            flex-shrink: 0;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #eef7ff, white);
+            color: var(--primary-color);
+            border-radius: 15px;
+            border: 1px solid #e9ecef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover .feature-icon-enhanced {
+            background: var(--gradient-primary);
+            color: white;
+            transform: rotate(10deg);
+            border-color: transparent;
+        }
+
+        .feature-text-enhanced h5 {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .feature-text-enhanced p {
+            margin: 0;
+            line-height: 1.6;
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        /* Animation Keyframes */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Add these if they don't already exist */
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 991px) {
+            .about-image-wrapper-enhanced {
+                transform: perspective(1500px) rotateY(0) rotateX(0) scale(1);
+                margin-bottom: 2rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .about-section-enhanced {
+                padding: 80px 0;
+            }
+            .section-title-enhanced {
+                font-size: 2.5rem;
+            }
+            .blob {
+                filter: blur(60px);
+            }
+            .blob1 { width: 300px; height: 300px; }
+            .blob2 { width: 250px; height: 250px; }
+        }
+
+        /* ======================================================= */
+        /* REVISED: Why Choose Us Section CSS (Brighter & Modern)  */
+        /* ======================================================= */
+
+        .choose-us-section {
+            /* A clean, bright base color */
+            background-color: #fcfdff; 
+            padding: 120px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* The new modern, mesh gradient background */
+        .choose-us-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            
+            /* Creating the soft mesh gradient with blurred radial gradients */
+            background-image: 
+                radial-gradient(circle at 15% 20%, rgba(13, 110, 253, 0.12), transparent 40%),
+                radial-gradient(circle at 85% 70%, rgba(40, 167, 69, 0.1), transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(255, 193, 7, 0.08), transparent 30%);
+            
+            /* A heavy blur is key to the premium, soft look */
+            filter: blur(100px);
+            transform: scale(1.2); /* Avoid hard edges from the blur */
+        }
+
+        .choose-us-section .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Enhanced Card Styling for the new background */
+        .choose-us-card {
+            /* Using a more opaque background for better readability on the vibrant backdrop */
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid white;
+            padding: 2.5rem;
+            border-radius: 30px; /* Increased border-radius for a softer feel */
+            text-align: center;
+            height: 100%;
+            box-shadow: 0 15px 40px -15px rgba(0, 20, 80, 0.08);
+            transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+            
+            /* Animation setup remains the same */
+            opacity: 0;
+            transform: translateY(40px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        /* Staggered animation delays for the cards */
+        .choose-us-card:nth-child(1) { animation-delay: 0.2s; }
+        .choose-us-card:nth-child(2) { animation-delay: 0.4s; }
+        .choose-us-card:nth-child(3) { animation-delay: 0.6s; }
+
+        .choose-us-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 30px 60px -15px rgba(13, 110, 253, 0.2);
+            /* A subtle glowing border effect on hover for a premium touch */
+            border-color: rgba(13, 110, 253, 0.3);
+        }
+
+        /* Card Icon Styling (remains largely the same, but complements the new look) */
+        .card-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem auto;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .choose-us-card:hover .card-icon {
+            transform: scale(1.1) rotate(10deg);
+        }
+        
+        .card-icon.icon-1 {
+            background: linear-gradient(135deg, #28a745, #5cb85c);
+            box-shadow: 0 10px 20px rgba(40, 167, 69, 0.25);
+        }
+        .card-icon.icon-2 {
+            background: linear-gradient(135deg, #0d6efd, #6ea8fe);
+            box-shadow: 0 10px 20px rgba(13, 110, 253, 0.25);
+        }
+        .card-icon.icon-3 {
+            background: linear-gradient(135deg, #ffc107, #ffdb58);
+            box-shadow: 0 10px 20px rgba(255, 193, 7, 0.25);
+        }
+
+        /* Card Content Styling */
+        .card-title {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+
+        .card-text {
+            color: var(--text-light);
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 991px) {
+            .choose-us-card {
+                animation-delay: 0.2s !important;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .choose-us-section {
+                padding: 80px 0;
+            }
+            .choose-us-card {
+                padding: 2rem;
+            }
+        }
+
+
+        /* ============================================ */
+        /* Our Products Section CSS              */
+        /* ============================================ */
+
+        .products-section {
+            padding: 120px 0;
+            position: relative;
+            /* Using the same animated gradient as the hero section */
+            background: linear-gradient(135deg, #0d6efd 0%, #4d94ff 25%, #80b3ff 50%, #6ea8fe 75%, #a8d8ff 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            overflow: hidden;
+        }
+
+        /* Titles for this dark section need to be white */
+        .products-section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.8rem, 6vw, 4rem);
+            font-weight: 800;
+            color: white;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            position: relative;
+        }
+        
+        /* Underline for the title */
+        .products-section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #a8d8ff, #ffffff);
+            border-radius: 2px;
+        }
+
+        .products-section-subtitle {
+            font-size: 1.15rem;
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.8;
+        }
+
+        /* Premium Product Card Styling */
+        .product-card {
+            position: relative;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 30px;
+            padding: 2rem;
+            text-align: center;
+            height: 100%;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+            transform-style: preserve-3d; /* Important for 3D hover effect */
+            
+            /* Animation setup */
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInUp 1s ease forwards;
+        }
+        
+        /* Staggered animation delays */
+        .col-xl-4:nth-child(1) .product-card { animation-delay: 0.2s; }
+        .col-xl-4:nth-child(2) .product-card { animation-delay: 0.4s; }
+        .col-xl-4:nth-child(3) .product-card { animation-delay: 0.6s; }
+        .col-xl-4:nth-child(4) .product-card { animation-delay: 0.8s; }
+        .col-xl-4:nth-child(5) .product-card { animation-delay: 1.0s; }
+        .col-xl-4:nth-child(6) .product-card { animation-delay: 1.2s; }
+
+        /* 3D Tilt Effect on Hover */
+        .product-card:hover {
+            transform: perspective(1000px) rotateY(5deg) rotateX(10deg) scale(1.05) translateY(-10px);
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.3);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* Shine effect for a premium feel */
+        .product-card-shine {
+            position: absolute;
+            top: 0; left: -150%;
+            width: 100%; height: 100%;
+            background: linear-gradient(100deg, transparent 20%, rgba(255,255,255,0.2) 50%, transparent 80%);
+            transition: left 1s ease-in-out;
+            pointer-events: none;
+        }
+        .product-card:hover .product-card-shine {
+            left: 150%;
+        }
+
+        /* Product Image Styling */
+        .product-image-container {
+            margin-bottom: 1.5rem;
+            transform: translateZ(50px); /* Makes the image pop out in 3D space */
+        }
+
+        .product-image-container img {
+            max-width: 80%;
+            height: auto;
+            transition: transform 0.5s ease;
+            filter: drop-shadow(0 20px 20px rgba(0,0,0,0.3));
+        }
+        
+        .product-card:hover .product-image-container img {
+            transform: scale(1.1) rotate(-5deg);
+        }
+
+        /* Product Content Styling */
+        .product-content {
+            transform: translateZ(30px); /* Puts content slightly forward */
+        }
+
+        .product-title {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: white;
+            margin-bottom: 0.75rem;
+        }
+
+        .product-description {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            min-height: 50px; /* Helps align cards with different text lengths */
+        }
+
+        .product-price {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 1.5rem;
+        }
+        
+        .price-unit {
+            font-size: 1rem;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Premium Button for Product Cards */
+        .btn-premium-product {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            transform: translateZ(20px);
+        }
+
+        .btn-premium-product:hover {
+            background: rgba(255, 255, 255, 0.25);
+            color: white;
+            transform: translateZ(20px) translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+
+        /* ======================================================= */
+        /* REVISED: Our Services Section CSS (Brighter & Modern)   */
+        /* ======================================================= */
+
+        .services-section {
+            padding: 120px 0;
+            background-color: #fcfdfe; /* Even brighter base color */
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Abstract, Glowing Background Element */
+        .services-section::before {
+            content: '';
+            position: absolute;
+            top: -20%;
+            left: -10%;
+            width: 120%;
+            height: 120%;
+            background: radial-gradient(circle at 20% 30%, rgba(13, 110, 253, 0.08) 0%, transparent 30%),
+                        radial-gradient(circle at 80% 60%, rgba(40, 167, 69, 0.06) 0%, transparent 30%),
+                        radial-gradient(circle at 50% 10%, rgba(255, 193, 7, 0.05) 0%, transparent 25%);
+            filter: blur(120px);
+            opacity: 0.9;
+            animation: backgroundFloat 20s infinite ease-in-out;
+            z-index: 0;
+        }
+
+        @keyframes backgroundFloat {
+            0% { transform: scale(1) translate(0, 0); }
+            50% { transform: scale(1.1) translate(20px, 10px); }
+            100% { transform: scale(1) translate(0, 0); }
+        }
+
+        .services-section .container {
+            position: relative;
+            z-index: 1; /* Ensure content is above the background effect */
+        }
+        
+        /* Modern Frosted Glass Card Styling */
+        .service-card {
+            background: rgba(255, 255, 255, 0.7); /* Slightly more transparent */
+            backdrop-filter: blur(25px); /* Stronger blur for frosted effect */
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.9); /* Lighter, more subtle border */
+            border-radius: 30px; /* Increased radius for modern look */
+            padding: 2.5rem 2rem;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            
+            /* Softer, more internal-looking shadow */
+            box-shadow: 0 8px 30px rgba(0, 20, 80, 0.05), inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+            
+            transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+            transform-style: preserve-3d; /* For potential 3D effects on hover */
+
+            opacity: 0;
+            transform: translateY(40px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        /* Staggered animation delays for the cards */
+        .col-lg-4:nth-child(1) .service-card { animation-delay: 0.2s; }
+        .col-lg-4:nth-child(2) .service-card { animation-delay: 0.4s; }
+        .col-lg-4:nth-child(3) .service-card { animation-delay: 0.6s; }
+
+        .service-card:hover {
+            transform: translateY(-15px) scale(1.02); /* More pronounced lift */
+            box-shadow: 0 25px 50px -15px rgba(13, 110, 253, 0.18), inset 0 0 0 1px rgba(13, 110, 253, 0.3);
+            border-color: rgba(13, 110, 253, 0.2); /* Subtle blue glow */
+        }
+
+        .service-card-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Enhanced Service Icon Styling */
+        .service-icon {
+            width: 80px; /* Slightly larger */
+            height: 80px; /* Slightly larger */
+            margin: 0 auto 1.5rem auto;
+            border-radius: 50%; /* Circular icon container */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2.2rem; /* Larger icon */
+            background: var(--gradient-primary); /* Uses the existing premium gradient */
+            box-shadow: 0 12px 25px rgba(13, 110, 253, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Inner glowing circle for the icon */
+        .service-icon::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover .service-icon {
+            transform: translateY(-5px) rotate(-8deg); /* More dynamic rotation and lift */
+            box-shadow: 0 18px 35px rgba(13, 110, 253, 0.4);
+        }
+        .service-card:hover .service-icon::after {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        .service-card-header h3 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700; /* Bolder title */
+            font-size: 1.7rem;
+            color: var(--text-dark);
+        }
+
+        .service-description {
+            color: var(--text-light);
+            line-height: 1.7;
+            text-align: center;
+            flex-grow: 1;
+            margin-bottom: 1.5rem;
+        }
+        
+        .service-divider {
+            border: 0;
+            height: 1px;
+            background: linear-gradient(to right, transparent, #e0e6ed, transparent); /* Faded divider */
+            margin: 1.5rem 0;
+        }
+
+        /* Modernized Features List Styling */
+        .service-features {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 2rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem; /* Slightly tighter spacing */
+            flex-grow: 1;
+        }
+        
+        .service-features li {
+            display: flex;
+            align-items: center;
+            gap: 1rem; /* More space for icon */
+            color: var(--text-dark);
+            font-weight: 500;
+            font-size: 0.95rem; /* Slightly smaller text */
+        }
+        
+        .service-features i {
+            font-size: 1.2rem; /* Larger feature icon */
+            width: 25px; /* Fixed width for alignment */
+            text-align: center;
+            color: var(--primary-color); /* Emphasize primary color */
+        }
+        
+        /* Service Button (reusing .btn-premium for consistency, or a new .btn-service-modern) */
+        .btn-service {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+            border: none;
+            color: white;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            margin-top: auto;
+            box-shadow: 0 8px 20px rgba(13, 110, 253, 0.3);
+            text-decoration: none; /* Ensure no underline */
+        }
+        
+        .btn-service:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(13, 110, 253, 0.4);
+            color: white; /* Keep text white */
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 991px) {
+            .service-card {
+                animation-delay: 0.2s !important;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .services-section {
+                padding: 80px 0;
+            }
+            .service-card {
+                padding: 2rem 1.5rem;
+            }
+            .service-icon {
+                width: 65px;
+                height: 65px;
+                font-size: 1.8rem;
+            }
+            .service-card-header h3 {
+                font-size: 1.5rem;
+            }
+            .service-features li {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* ======================================================= */
+        /* REVISED: Testimonials Section CSS (Brighter, Colorful & Animated) */
+        /* ======================================================= */
+
+        .testimonials-section {
+            padding: 120px 0;
+            /* New vibrant animated background */
+            background: linear-gradient(135deg, #e0f7fa 0%, #e8f5e9 25%, #fffde7 50%, #fce4ec 75%, #e3f2fd 100%);
+            background-size: 400% 400%; /* Make it large for animation */
+            animation: gradientShiftColor 20s ease infinite alternate; /* New animation for color shift */
+            position: relative;
+            overflow: hidden;
+            z-index: 0; /* Ensure this is the base layer */
+        }
+
+        /* Keyframe animation for background color shift */
+        @keyframes gradientShiftColor {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* More Dynamic & Colorful Background Elements */
+        .testimonials-section::before {
+            content: '';
+            position: absolute;
+            top: -30%; /* Start higher */
+            left: -30%; /* Start further left */
+            width: 160%; /* Make it larger to fill space */
+            height: 160%; /* Make it larger to fill space */
+            
+            /* More colorful, swirling radial gradients */
+            background: 
+                radial-gradient(circle at 10% 70%, rgba(13, 110, 253, 0.15) 0%, transparent 25%),
+                radial-gradient(circle at 70% 20%, rgba(40, 167, 69, 0.12) 0%, transparent 25%),
+                radial-gradient(circle at 40% 90%, rgba(255, 193, 7, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 50%, rgba(220, 53, 69, 0.1) 0%, transparent 20%); /* Added another color */
+            
+            filter: blur(150px); /* Even heavier blur */
+            opacity: 0.8;
+            animation: swirlBackground 30s infinite linear alternate; /* New swirl animation */
+            z-index: 0;
+        }
+
+        /* Keyframe animation for swirling background elements */
+        @keyframes swirlBackground {
+            0% { transform: scale(1) rotate(0deg) translateX(0) translateY(0); }
+            25% { transform: scale(1.05) rotate(15deg) translateX(10px) translateY(10px); }
+            50% { transform: scale(1.1) rotate(0deg) translateX(-10px) translateY(20px); }
+            75% { transform: scale(1.05) rotate(-15deg) translateX(10px) translateY(-10px); }
+            100% { transform: scale(1) rotate(0deg) translateX(0) translateY(0); }
+        }
+
+        .testimonials-section .container {
+            position: relative;
+            z-index: 1; /* Ensure content is above the background effect */
+        }
+        
+        /* Testimonial Card Styling (Slightly adjusted for new background) */
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.85); /* Slightly more opaque for clarity */
+            backdrop-filter: blur(30px); /* Even stronger blur for frosted effect */
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.95); /* Brighter, crisper border */
+            border-radius: 30px;
+            padding: 2.5rem;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 40px rgba(0, 20, 80, 0.07), inset 0 0 0 1px rgba(255, 255, 255, 0.6); /* Enhanced shadow */
+            transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+            
+            opacity: 0;
+            transform: translateY(40px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+        
+        /* Staggered animation delays for the cards */
+        .col-lg-4:nth-child(1) .testimonial-card { animation-delay: 0.2s; }
+        .col-lg-4:nth-child(2) .testimonial-card { animation-delay: 0.4s; }
+        .col-lg-4:nth-child(3) .testimonial-card { animation-delay: 0.6s; }
+
+        .testimonial-card:hover {
+            transform: translateY(-18px) scale(1.03); /* More pronounced lift and scale */
+            box-shadow: 0 30px 60px -15px rgba(13, 110, 253, 0.22), inset 0 0 0 1px rgba(13, 110, 253, 0.4);
+            border-color: rgba(13, 110, 253, 0.3); /* Clearer blue glow */
+        }
+
+        .quote-icon {
+            font-size: 2.8rem; /* Slightly larger quote icon */
+            color: var(--primary-color); /* Stronger primary color */
+            margin-bottom: 1.5rem;
+            opacity: 0.7; /* Make it a subtle overlay */
+        }
+
+        .testimonial-text {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.08rem; /* Slightly larger text */
+            line-height: 1.8;
+            color: var(--text-dark); /* Darker text for better contrast */
+            flex-grow: 1;
+            margin-bottom: 2rem;
+            font-weight: 500; /* Slightly bolder for readability */
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: auto;
+        }
+        
+        .testimonial-author img {
+            width: 65px; /* Slightly larger image */
+            height: 65px; /* Slightly larger image */
+            border-radius: 50%;
+            border: 4px solid white; /* Thicker white border */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15); /* More pronounced shadow */
+        }
+        
+        .author-info {
+            text-align: left; /* Align text to the left */
+        }
+
+        .author-name {
+            font-weight: 700; /* Bolder name */
+            font-size: 1.2rem; /* Larger name */
+            color: var(--text-dark);
+            margin: 0;
+        }
+
+        .author-stars {
+            color: #ffb300; /* Slightly deeper gold for stars */
+            font-size: 1rem; /* Larger stars */
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 991px) {
+            .testimonial-card {
+                animation-delay: 0.2s !important;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .testimonials-section {
+                padding: 80px 0;
+            }
+            .testimonial-card {
+                padding: 2rem 1.5rem;
+            }
+            .quote-icon {
+                font-size: 2rem;
+            }
+            .testimonial-text {
+                font-size: 1rem;
+            }
+            .testimonial-author img {
+                width: 50px;
+                height: 50px;
+            }
+            .author-name {
+                font-size: 1.05rem;
+            }
+            .author-stars {
+                font-size: 0.85rem;
+            }
+        }
+
+        /* ======================================================= */
+        /* REVISED: Delivery Plans Section CSS (New Background)    */
+        /* ======================================================= */
+
+        .plans-section {
+            padding: 120px 0;
+            position: relative;
+            overflow: hidden;
+            /* New, bright radial gradient with an animated wave overlay */
+            background-color: #f7fbff;
+            background-image: 
+                radial-gradient(circle at top left, rgba(230, 245, 255, 0.8), transparent 40%),
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill='none' stroke='%23e0f0ff' stroke-width='1.5'%3E%3Cpath d='M-100,50 C-50,100 0,0 50,50 C100,100 150,0 200,50'/%3E%3Cpath d='M-100,100 C-50,150 0,50 50,100 C100,150 150,50 200,100'/%3E%3C/g%3E%3C/svg%3E");
+            background-size: auto, 100px 100px;
+            animation: flowAnimation 25s linear infinite;
+        }
+
+        /* Keyframe animation for the flowing wave pattern */
+        @keyframes flowAnimation {
+            from { background-position: 0 0; }
+            to { background-position: 200px 0; }
+        }
+
+        /* Remove the old pseudo-element background effect */
+        .plans-section .testimonials-section\:\:before {
+            display: none;
+        }
+
+        .plans-section .container {
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Plan Card Styling (unchanged, but looks great on the new background) */
+        .plan-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            border-radius: 30px;
+            padding: 2.5rem;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0, 20, 80, 0.07);
+            transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+            position: relative;
+            
+            opacity: 0;
+            transform: translateY(40px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+        
+        /* Staggered animation delays for the cards */
+        .col-lg-4:nth-child(1) .plan-card { animation-delay: 0.2s; }
+        .col-lg-4:nth-child(2) .plan-card { animation-delay: 0.4s; }
+        .col-lg-4:nth-child(3) .plan-card { animation-delay: 0.6s; }
+
+        .plan-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 25px 50px -15px rgba(13, 110, 253, 0.2);
+        }
+        
+        .plan-card.popular {
+            transform: scale(1.05);
+            border: 2px solid var(--primary-color);
+            box-shadow: 0 25px 50px -15px rgba(13, 110, 253, 0.25);
+        }
+        .plan-card.popular:hover {
+            transform: scale(1.08) translateY(-15px);
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gradient-primary);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 5px 15px rgba(13, 110, 253, 0.3);
+        }
+
+        .plan-header { margin-bottom: 2rem; }
+        .plan-title {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: var(--text-dark);
+        }
+        .plan-subtitle {
+            font-size: 1rem;
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+        }
+        .plan-price {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--text-dark);
+        }
+        .price-period {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-light);
+        }
+
+        .plan-features {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 2rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            flex-grow: 1;
+            text-align: left;
+        }
+        .plan-features li {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--text-dark);
+        }
+        .plan-features i {
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+        }
+
+        .btn-plan, .btn-plan-popular {
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            margin-top: auto;
+            width: 100%;
+        }
+        .btn-plan {
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+        .btn-plan:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+        }
+        .btn-plan-popular {
+            background: var(--gradient-primary);
+            border: none;
+            color: white;
+            box-shadow: 0 8px 20px rgba(13, 110, 253, 0.3);
+        }
+        .btn-plan-popular:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(13, 110, 253, 0.4);
+        }
+
+        @media (max-width: 991px) {
+            .plan-card.popular {
+                transform: scale(1);
+                margin-top: 2rem;
+                margin-bottom: 2rem;
+            }
+            .plan-card.popular:hover {
+                transform: translateY(-15px);
+            }
+        }
+        @media (max-width: 767px) {
+            .plans-section { padding: 80px 0; }
+            .plan-card { padding: 2rem 1.5rem; }
+            .plan-price { font-size: 2.5rem; }
+        }
+
+        /* ============================================ */
+        /* Get a Sample Section CSS              */
+        /* ============================================ */
+
+        .sample-section {
+            padding: 120px 0;
+            background-color: #f7fbff; /* Clean, bright base */
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Animated Wave Background */
+        .wave-bg {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+        .wave {
+            background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3e%3cpath fill='%23e0f0ff' fill-opacity='0.6' d='M0,160L48,176C96,192,192,224,288,213.3C384,203,480,149,576,149.3C672,149,768,203,864,224C960,245,1056,235,1152,208C1248,181,1344,139,1392,117.3L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3e%3c/path%3e%3c/svg%3e");
+            position: absolute;
+            width: 200%;
+            height: 100%;
+            bottom: 0;
+            background-repeat: repeat-x;
+            animation: wave-animation 15s linear infinite;
+        }
+        .wave1 { animation-duration: 15s; opacity: 1; }
+        .wave2 { animation-duration: 20s; opacity: 0.7; animation-direction: reverse; }
+        .wave3 { animation-duration: 25s; opacity: 0.5; }
+
+        @keyframes wave-animation {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .sample-section .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .sample-wrapper {
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 30px 60px -20px rgba(13, 110, 253, 0.2);
+            
+            opacity: 0;
+            transform: translateY(40px);
+            animation: fadeInUp 1s ease 0.2s forwards;
+        }
+
+        /* Left Side: Contact Info */
+        .contact-info-panel {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .contact-info-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        .contact-info-content p {
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.7;
+            margin-bottom: 2.5rem;
+        }
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .info-item i {
+            font-size: 1.5rem;
+            margin-top: 5px;
+            width: 25px;
+        }
+        .info-item strong {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        .info-item span {
+            color: rgba(255, 255, 255, 0.8);
+        }
+        .social-icons {
+            margin-top: 2rem;
+        }
+        .social-icons a {
+            color: white;
+            font-size: 1.2rem;
+            margin-right: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        .social-icons a:hover {
+            transform: scale(1.2);
+            color: #ffed4e;
+        }
+
+        /* Right Side: Form */
+        .form-panel {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            padding: 3rem;
+        }
+        .form-panel h4 {
+            font-weight: 600;
+            font-size: 1.8rem;
+            color: var(--text-dark);
+            margin-bottom: 2rem;
+        }
+        .form-label {
+            font-weight: 500;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+        .form-control, .form-select {
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 1px solid #ced4da;
+            padding: 12px 15px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        .form-control:focus, .form-select:focus {
+            background-color: white;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.15);
+        }
+        .form-control::placeholder {
+            color: #adb5bd;
+        }
+        .btn-submit-sample {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: white;
+            background: var(--gradient-primary);
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(13, 110, 253, 0.3);
+            transition: all 0.3s ease;
+        }
+        .btn-submit-sample:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(13, 110, 253, 0.4);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 991px) {
+            .contact-info-panel {
+                border-radius: 30px 30px 0 0;
+            }
+            .form-panel {
+                border-radius: 0 0 30px 30px;
+            }
+        }
+        @media (max-width: 767px) {
+            .sample-section { padding: 80px 0; }
+            .contact-info-panel, .form-panel { padding: 2rem; }
+        }
+/* ============================================ */
+        /* Amazing Footer CSS                    */
+        /* ============================================ */
+
+        .site-footer {
+            /* UPDATED: New deep navy blue background */
+            background-color: #051a3a;
+            color: #a9a9a9;
+            padding-top: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Subtle animated aurora effect for the background */
+        .footer-aurora {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            background: 
+                radial-gradient(ellipse at 20% 80%, rgba(13, 110, 253, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 30%, rgba(40, 167, 69, 0.15) 0%, transparent 50%);
+            animation: aurora-animation 20s infinite alternate ease-in-out;
+        }
+
+        @keyframes aurora-animation {
+            from { transform: rotate(0deg) scale(1.5); }
+            to { transform: rotate(360deg) scale(1.8); }
+        }
+
+        .site-footer .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Main Footer Widgets */
+        .footer-main {
+            padding-bottom: 60px;
+        }
+        .footer-widget .widget-title {
+            color: white;
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        .widget-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px; left: 0;
+            width: 30px; height: 2px;
+            background: var(--primary-color);
+        }
+
+        /* Brand Info */
+        .footer-brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 1.8rem; /* Adjusted size to match navbar */
+            font-weight: 800;
+            color: white;
+            text-decoration: none;
+            margin-bottom: 1rem;
+        }
+        /* The .logo and .logo img styles are inherited from the navbar CSS, so no new styles are needed */
+
+        .footer-tagline {
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+        .footer-social a {
+            display: inline-flex;
+            width: 40px; height: 40px;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-radius: 50%;
+            margin-right: 10px;
+            transition: all 0.3s ease;
+        }
+        .footer-social a:hover {
+            background: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        /* Footer Links */
+        .footer-links, .footer-contact, .footer-hours {
+            list-style: none;
+            padding: 0;
+        }
+        .footer-links li, .footer-contact li, .footer-hours li {
+            margin-bottom: 1rem;
+        }
+        .footer-links a {
+            color: #a9a9a9;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        /* Contact & Hours */
+        .footer-contact i {
+            margin-right: 10px;
+            color: var(--primary-color);
+            width: 20px;
+        }
+        .footer-hours li {
+            display: flex;
+            justify-content: space-between;
+        }
+        .footer-hours span {
+            color: white;
+        }
+
+        /* Bottom Bar */
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 25px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .footer-bottom p {
+            margin: 0;
+        }
+        .bottom-links a {
+            color: #a9a9a9;
+            text-decoration: none;
+            margin-left: 20px;
+            transition: color 0.3s ease;
+        }
+        .bottom-links a:hover {
+            color: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 991px) {
+            .footer-main {
+                text-align: center;
+            }
+            .widget-title::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            .footer-hours li {
+                justify-content: center;
+                gap: 1rem;
+            }
+        }
+        @media (max-width: 767px) {
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+            .bottom-links a {
+                margin: 0 10px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Premium Navbar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <!-- Brand -->
+            <a class="navbar-brand" href="#home">
+                <div class="logo">
+                    <img src="assets/images/taazalogo1.png" alt="Taaza Logo">
+                </div>
+                Taaza Products
+            </a>
+
+            <!-- Mobile Toggle Button -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Navigation Links -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#products">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#services">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#gallery">Gallery</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn-sample" href="#sample">
+                            <i class="fas fa-gift me-2"></i>Get Sample
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <!-- Background Effects -->
+        <div class="hero-overlay"></div>
+        <div class="hero-particles">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+        </div>
+        <div class="geometric-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+        </div>
+
+        <div class="container">
+            <div class="row align-items-center min-vh-100">
+                <div class="col-lg-6">
+                    <div class="hero-content">
+                        <div class="hero-badge">
+                            <i class="fas fa-leaf"></i>
+                            <span>100% Natural & Organic</span>
+                        </div>
+                        
+                        <h1 class="hero-title">
+                            Fresh & Pure<br>
+                            Dairy Products
+                        </h1>
+                        
+                        <p class="hero-subtitle">
+                            From our farm to your family - delivering the finest quality milk and dairy products with love, care, and tradition since 1985.
+                        </p>
+                        
+                        <div class="hero-buttons">
+                            <button class="btn btn-premium">
+                                <i class="fas fa-shopping-bag me-2"></i>
+                                Shop Now
+                            </button>
+                            <button class="btn btn-glass">
+                                <i class="fas fa-truck me-2"></i>
+                                Start Delivery
+                            </button>
+                        </div>
+                        
+                        <div class="hero-stats">
+                            <div class="stat-item">
+                                <span class="stat-number counter" data-target="15000">15K+</span>
+                                <div class="stat-label">Happy Customers</div>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number counter" data-target="50000">50K+</span>
+                                <div class="stat-label">Liters Daily</div>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number counter" data-target="40">40+</span>
+                                <div class="stat-label">Years Experience</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <div class="hero-image-container">
+                        <div class="floating-card card-1">
+                            <i class="fas fa-cow"></i>
+                            <span>200+ Happy Cows</span>
+                        </div>
+                        <div class="floating-card card-2">
+                            <i class="fas fa-award"></i>
+                            <span>Premium Quality</span>
+                        </div>
+                        <div class="floating-card card-3">
+                            <i class="fas fa-leaf"></i>
+                            <span>100% Organic</span>
+                        </div>
+                        <img src="assets/images/herosection.png" 
+                             alt="Fresh Dairy Products" 
+                             class="img-fluid hero-main-image w-100"
+                             style="z-index: -1;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About us section -->
+    <section id="about" class="about-section-enhanced">
+        <div class="blob blob1"></div>
+        <div class="blob blob2"></div>
+        <div class="blob blob3"></div>
+        
+        <div class="container">
+            <div class="row justify-content-center text-center mb-5 pb-3">
+                <div class="col-md-9 col-lg-8">
+                    <h2 class="section-title-enhanced">
+                        A Legacy of Purity & <span class="highlight-text">Passion</span>
+                    </h2>
+                    <p class="section-subtitle-enhanced">
+                        Discover the story behind every drop. A tale of tradition, dedication, and an unwavering commitment to quality that began over four decades ago.
+                    </p>
+                </div>
+            </div>
+
+            <div class="row align-items-center g-5">
+                <div class="col-lg-6">
+                    <div class="about-image-wrapper-enhanced">
+                        <img src="assets/images/about-image.jpeg" alt="Lush green dairy farm with a cow" class="img-fluid">
+                        <div class="image-shine-effect"></div>
+                        <div class="image-overlay-card-enhanced">
+                            <i class="fas fa-award"></i>
+                            <div>
+                                <strong>Since 1985</strong>
+                                <span>Rooted in Tradition</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="about-content-enhanced">
+                        <h3 class="content-title-enhanced">From Our Farm to Your Family's Table</h3>
+                        <p>
+                            Taaza Dairy isn't just a brand; it's a family legacy. Founded on the principles of ethical farming and natural purity, we believe the best products come from the happiest cows and the healthiest land.
+                        </p>
+                        
+                        <div class="features-grid">
+                            <div class="feature-card">
+                                <div class="feature-icon-enhanced"><i class="fas fa-heartbeat"></i></div>
+                                <div class="feature-text-enhanced">
+                                    <h5>Ethical & Humane</h5>
+                                    <p>Our cows graze freely on lush, organic pastures, living happy, stress-free lives.</p>
+                                </div>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-icon-enhanced"><i class="fas fa-leaf"></i></div>
+                                <div class="feature-text-enhanced">
+                                    <h5>Purely Organic</h5>
+                                    <p>We say no to hormones, antibiotics, and synthetic pesticides. Just 100% natural goodness.</p>
+                                </div>
+                            </div>
+                             <div class="feature-card">
+                                <div class="feature-icon-enhanced"><i class="fas fa-recycle"></i></div>
+                                <div class="feature-text-enhanced">
+                                    <h5>Sustainable Farming</h5>
+                                    <p>We nurture our land with eco-friendly practices to ensure a healthier planet for the future.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <a href="#process" class="btn btn-premium mt-4">
+                            <i class="fas fa-cogs me-2"></i>
+                            Our Process
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Why choose us section -->
+     <section id="why-choose-us" class="choose-us-section">
+        <div class="section-background-wave"></div>
+        <div class="container">
+            <div class="row justify-content-center text-center mb-5 pb-3">
+                <div class="col-md-9 col-lg-8">
+                    <h2 class="section-title-enhanced">The Taaza Difference</h2>
+                    <p class="section-subtitle-enhanced">
+                        Experience dairy as it should be: pure, fresh, and delivered with care. Here’s what sets us apart from the rest.
+                    </p>
+                </div>
+            </div>
+
+            <div class="row g-4 justify-content-center">
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="choose-us-card">
+                        <div class="card-icon icon-1">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <h4 class="card-title">100% Pure & Natural</h4>
+                        <p class="card-text">
+                            Our products are free from hormones, antibiotics, and artificial additives. Just wholesome goodness, straight from our pastures to your plate.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="choose-us-card">
+                        <div class="card-icon icon-2">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <h4 class="card-title">Fresh Daily Delivery</h4>
+                        <p class="card-text">
+                            Get farm-fresh milk and dairy products delivered to your doorstep every single morning, ensuring maximum freshness for your family.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="choose-us-card">
+                        <div class="card-icon icon-3">
+                            <i class="fas fa-award"></i>
+                        </div>
+                        <h4 class="card-title">Award Winning Quality</h4>
+                        <p class="card-text">
+                            Our commitment to excellence has been recognized with numerous awards for superior taste, quality, and sustainable farming practices.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!--            Our Products Section              -->
+    <!-- ============================================ -->
+    <section id="products" class="products-section">
+        <!-- Reusing the exact same background effects from the hero section for consistency -->
+        <div class="hero-overlay"></div>
+        <div class="hero-particles">
+            <div class="particle"></div> <div class="particle"></div> <div class="particle"></div>
+            <div class="particle"></div> <div class="particle"></div> <div class="particle"></div>
+        </div>
+        <div class="geometric-shapes">
+            <div class="shape shape-1"></div> <div class="shape shape-2"></div> <div class="shape shape-3"></div>
+        </div>
+
+        <div class="container">
+            <!-- Section Title -->
+            <div class="row justify-content-center text-center mb-5 pb-3">
+                <div class="col-md-9 col-lg-8">
+                    <h2 class="products-section-title">Our Finest Selection</h2>
+                    <!-- <p class="products-section-subtitle">
+                        Crafted with care, from our farm to your family. Discover the taste of pure, natural goodness in every product.
+                    </p> -->
+                </div>
+            </div>
+
+            <!-- Products Row -->
+            <div class="row g-4 justify-content-center">
+
+                <div class="col-xl-4 col-lg-6">
+                    <div class="product-card">
+                        <div class="product-card-shine"></div>
+                        <div class="product-image-container">
+                            <img src="assets/images/milk-bottle.png" alt="Farm Fresh Milk">
+                        </div>
+                        <div class="product-content">
+                            <h4 class="product-title">Farm Fresh Milk</h4>
+                            <p class="product-description">Pure, creamy, and full of natural goodness. The perfect start to any day.</p>
+                            <!-- <div class="product-price">RS 90  <span class="price-unit">/ Liter</span></div> -->
+                            <!-- <button class="btn btn-premium-product">
+                                <i class="fas fa-shopping-cart me-2"></i> Add to Cart
+                            </button> -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-4 col-lg-6">
+                    <div class="product-card">
+                        <div class="product-card-shine"></div>
+                        <div class="product-image-container">
+                             <img src="assets/images/yogurt.png" alt="Natural Yogurt">
+                        </div>
+                        <div class="product-content">
+                            <h4 class="product-title">Natural Yogurt</h4>
+                            <p class="product-description">Thick, creamy, and packed with probiotics for a healthy gut.</p>
+                            <!-- <div class="product-price">$4.49 <span class="price-unit">/ 32oz</span></div> -->
+                            <!-- <button class="btn btn-premium-product">
+                                <i class="fas fa-shopping-cart me-2"></i> Add to Cart
+                            </button> -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-4 col-lg-6">
+                    <div class="product-card">
+                        <div class="product-card-shine"></div>
+                        <div class="product-image-container">
+                             <img src="assets/images/cheese.png" alt="Artisan Cheese">
+                        </div>
+                        <div class="product-content">
+                            <h4 class="product-title">Artisan Cheese</h4>
+                            <p class="product-description">Handcrafted cheddar with a rich, sharp flavor. Aged to perfection.</p>
+                            <!-- <div class="product-price">$8.99 <span class="price-unit">/ lb</span></div> -->
+                            <!-- <button class="btn btn-premium-product">
+                                <i class="fas fa-shopping-cart me-2"></i> Add to Cart
+                            </button> -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-4 col-lg-6">
+                    <div class="product-card">
+                        <div class="product-card-shine"></div>
+                        <div class="product-image-container">
+                             <img src="assets/images/curd1.png" alt="Fresh Curd (Dahi)">
+                        </div>
+                        <div class="product-content">
+                            <h4 class="product-title">Fresh Curd (Dahi)</h4>
+                            <p class="product-description">Traditionally made for a thick, tangy taste. Perfect for meals or lassi.</p>
+                            <!-- <div class="product-price">$2.99 <span class="price-unit">/ 16oz</span></div> -->
+                            <!-- <button class="btn btn-premium-product">
+                                <i class="fas fa-shopping-cart me-2"></i> Add to Cart
+                            </button> -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-4 col-lg-6">
+                    <div class="product-card">
+                        <div class="product-card-shine"></div>
+                        <div class="product-image-container">
+                             <img src="assets/images/ghee.png" alt="Aromatic Ghee">
+                        </div>
+                        <div class="product-content">
+                            <h4 class="product-title">Aromatic Ghee</h4>
+                            <p class="product-description">Slow-churned for a rich, granular texture and heavenly aroma. The golden standard of purity.</p>
+                            <!-- <div class="product-price">$12.99 <span class="price-unit">/ 16oz</span></div> -->
+                            <!-- <button class="btn btn-premium-product">
+                                <i class="fas fa-shopping-cart me-2"></i> Add to Cart
+                            </button> -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-4 col-lg-6">
+                    <div class="product-card">
+                        <div class="product-card-shine"></div>
+                        <div class="product-image-container">
+                             <img src="assets/images/butter.png" alt="Creamy Butter">
+                        </div>
+                        <div class="product-content">
+                            <h4 class="product-title">Creamy Butter</h4>
+                            <p class="product-description">Churned from fresh cream for a rich, smooth taste. Perfect for cooking or spreading.</p>
+                            <!-- <div class="product-price">$5.49 <span class="price-unit">/ 8oz</span></div> -->
+                            <!-- <button class="btn btn-premium-product">
+                                <i class="fas fa-shopping-cart me-2"></i> Add to Cart
+                            </button> -->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Services section -->
+    <section id="services" class="services-section">
+        <div class="animated-grid-background"></div>
+        <div class="container">
+            <div class="row justify-content-center text-center mb-5 pb-3">
+                <div class="col-md-9 col-lg-8">
+                    <h2 class="section-title-enhanced">Our Services</h2>
+                    <p class="section-subtitle-enhanced">
+                        <strong>Comprehensive Dairy Solutions</strong><br>
+                        From home delivery to wholesale, we've got you covered with services tailored to your needs.
+                    </p>
+                </div>
+            </div>
+
+            <div class="row g-4 justify-content-center">
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-card">
+                        <div class="service-card-header">
+                            <div class="service-icon">
+                                <i class="fas fa-house-user"></i>
+                            </div>
+                            <h3>Home Delivery</h3>
+                        </div>
+                        <p class="service-description">
+                            Fresh dairy products delivered to your doorstep daily. Subscribe for regular delivery and never run out of milk again.
+                        </p>
+                        <hr class="service-divider">
+                        <ul class="service-features">
+                            <li><i class="fas fa-sun text-primary"></i> Daily morning delivery</li>
+                            <li><i class="fas fa-calendar-alt text-primary"></i> Flexible subscription plans</li>
+                            <li><i class="fas fa-thermometer-half text-primary"></i> Temperature controlled</li>
+                            <li><i class="fas fa-laptop text-primary"></i> Easy online management</li>
+                        </ul>
+                        <a href="#contact" class="btn btn-service">Subscribe Now</a>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-card">
+                        <div class="service-card-header">
+                            <div class="service-icon">
+                                <i class="fas fa-truck-loading"></i>
+                            </div>
+                            <h3>Wholesale Supply</h3>
+                        </div>
+                        <p class="service-description">
+                            Bulk orders for retailers, restaurants, and hotels. Competitive prices with guaranteed quality and timely delivery.
+                        </p>
+                        <hr class="service-divider">
+                        <ul class="service-features">
+                            <li><i class="fas fa-tags text-primary"></i> Bulk discounts available</li>
+                            <li><i class="fas fa-headset text-primary"></i> B2B dedicated support</li>
+                            <li><i class="fas fa-box-open text-primary"></i> Custom packaging options</li>
+                            <li><i class="fas fa-link text-primary"></i> Reliable supply chain</li>
+                        </ul>
+                        <a href="#contact" class="btn btn-service">Inquire Now</a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-card">
+                        <div class="service-card-header">
+                            <div class="service-icon">
+                                <i class="fas fa-cogs"></i>
+                            </div>
+                            <h3>Custom Orders</h3>
+                        </div>
+                        <p class="service-description">
+                            Special requirements? We create custom dairy products for events, restaurants, and special dietary needs.
+                        </p>
+                        <hr class="service-divider">
+                        <ul class="service-features">
+                            <li><i class="fas fa-concierge-bell text-primary"></i> Event catering solutions</li>
+                            <li><i class="fas fa-seedling text-primary"></i> Special dietary products</li>
+                            <li><i class="fas fa-palette text-primary"></i> Custom packaging & branding</li>
+                            <li><i class="fas fa-comments text-primary"></i> Consultation services</li>
+                        </ul>
+                        <a href="#contact" class="btn btn-service">Contact Us</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials section -->
+
+    <section id="testimonials" class="testimonials-section">
+        <div class="services-section::before" style="animation-direction: reverse;"></div>
+        <div class="container">
+            <div class="row justify-content-center text-center mb-5 pb-3">
+                <div class="col-md-9 col-lg-8">
+                    <h2 class="section-title-enhanced">What Our Customers Say</h2>
+                    <p class="section-subtitle-enhanced">
+                        Voices of our happy customers. Real stories from real families who love our fresh dairy products.
+                    </p>
+                </div>
+            </div>
+
+            <div class="row g-4 justify-content-center">
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="testimonial-card">
+                        <i class="fas fa-quote-left quote-icon"></i>
+                        <p class="testimonial-text">
+                            "The daily delivery is a lifesaver! The milk is always incredibly fresh, and the taste is miles ahead of anything from the supermarket. My kids love it!"
+                        </p>
+                        <div class="testimonial-author">
+                            <img src="assets/images/placeholder.jpeg" alt="Varalaxmi">
+                            <div class="author-info">
+                                <h5 class="author-name">Varalaxmi</h5>
+                                <div class="author-stars">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="testimonial-card">
+                        <i class="fas fa-quote-left quote-icon"></i>
+                        <p class="testimonial-text">
+                            "As a restaurant owner, consistency and quality are everything. Taaza's wholesale supply has been flawless. Their ghee and cheese are exceptional."
+                        </p>
+                        <div class="testimonial-author">
+                            <img src="assets/images/placeholder.jpeg" alt="A .Narasimha">
+                            <div class="author-info">
+                                <h5 class="author-name">A .Narasimha</h5>
+                                <div class="author-stars">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="testimonial-card">
+                        <i class="fas fa-quote-left quote-icon"></i>
+                        <p class="testimonial-text">
+                            "I ordered a custom batch of flavored yogurt for a family event, and it was a huge hit! The team was so helpful and accommodating. Highly recommend!"
+                        </p>
+                        <div class="testimonial-author">
+                            <img src="assets/images/placeholder.jpeg" alt="M Venkat Reddy">
+                            <div class="author-info">
+                                <h5 class="author-name">M Venkat Reddy</h5>
+                                <div class="author-stars">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!--            Delivery Plans Section            -->
+    <!-- ============================================ -->
+    <section id="plans" class="plans-section">
+        <!-- Reusing the vibrant, animated background -->
+        <div class="testimonials-section::before"></div>
+        <div class="container">
+            <!-- Section Title -->
+            <div class="row justify-content-center text-center mb-5 pb-3">
+                <div class="col-md-9 col-lg-8">
+                    <h2 class="section-title-enhanced">Delivery Plans</h2>
+                    <p class="section-subtitle-enhanced">
+                        <strong>Choose Your Perfect Plan</strong><br>
+                        Flexible subscription plans designed for every family's needs.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Pricing Plans Row -->
+            <div class="row g-4 justify-content-center align-items-center">
+
+                <!-- Plan 1: Basic Plan -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="plan-card">
+                        <div class="plan-header">
+                            <h3 class="plan-title">Basic Plan</h3>
+                            <p class="plan-subtitle">Perfect for small families</p>
+                            <!-- <div class="plan-price">₹1,800 <span class="price-period">/month</span></div> -->
+                        </div>
+                        <ul class="plan-features">
+                            <li><i class="fas fa-check-circle"></i> 1 Liter Daily</li>
+                            <li><i class="fas fa-check-circle"></i> Morning Delivery (6-8 AM)</li>
+                            <li><i class="fas fa-check-circle"></i> 30-Day Supply</li>
+                            <li><i class="fas fa-check-circle"></i> Quality Guarantee</li>
+                            <li><i class="fas fa-check-circle"></i> Easy Pause/Resume</li>
+                        </ul>
+                        <!-- <button class="btn btn-plan">Choose Plan</button> -->
+                    </div>
+                </div>
+
+                <!-- Plan 2: Family Plan (Most Popular) -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="plan-card popular">
+                        <div class="popular-badge">Most Popular</div>
+                        <div class="plan-header">
+                            <h3 class="plan-title">Family Plan</h3>
+                            <p class="plan-subtitle">Best value for families</p>
+                            <!-- <div class="plan-price">₹3,400 <span class="price-period">/month</span></div> -->
+                        </div>
+                        <ul class="plan-features">
+                            <li><i class="fas fa-check-circle"></i> 2 Liters Daily</li>
+                            <li><i class="fas fa-check-circle"></i> Morning Delivery (6-8 AM)</li>
+                            <li><i class="fas fa-check-circle"></i> 30-Day Supply</li>
+                            <li><i class="fas fa-check-circle"></i> Free Weekend Delivery</li>
+                            <li><i class="fas fa-check-circle"></i> 10% Discount on Products</li>
+                            <li><i class="fas fa-check-circle"></i> Priority Customer Support</li>
+                        </ul>
+                        <!-- <button class="btn btn-plan-popular">Choose Plan</button> -->
+                    </div>
+                </div>
+                
+                <!-- Plan 3: Premium Plan -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="plan-card">
+                        <div class="plan-header">
+                            <h3 class="plan-title">Premium Plan</h3>
+                            <p class="plan-subtitle">For large families & businesses</p>
+                            <!-- <div class="plan-price">₹4,800 <span class="price-period">/month</span></div> -->
+                        </div>
+                        <ul class="plan-features">
+                            <li><i class="fas fa-check-circle"></i> 3 Liters Daily</li>
+                            <li><i class="fas fa-check-circle"></i> Morning & Evening Delivery</li>
+                            <li><i class="fas fa-check-circle"></i> 30-Day Supply</li>
+                            <li><i class="fas fa-check-circle"></i> Free Monthly Products</li>
+                            <li><i class="fas fa-check-circle"></i> 15% Discount on All Products</li>
+                            <li><i class="fas fa-check-circle"></i> 24/7 Priority Support</li>
+                        </ul>
+                        <!-- <button class="btn btn-plan">Choose Plan</button> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!--            Get a Sample Section              -->
+    <!-- ============================================ -->
+<section id="sample" class="sample-section">
+    <!-- New animated wave background -->
+    <div class="wave-bg">
+        <div class="wave wave1"></div>
+        <div class="wave wave2"></div>
+        <div class="wave wave3"></div>
+    </div>
+    <div class="container">
+        <!-- Section Title -->
+        <div class="row justify-content-center text-center mb-5 pb-3">
+            <div class="col-md-9 col-lg-8">
+                <h2 class="section-title-enhanced">Try Before You Subscribe</h2>
+                <p class="section-subtitle-enhanced">
+                    Experience the freshness firsthand. Fill out the form to receive a complimentary sample of our finest products delivered to your door.
+                </p>
+            </div>
+        </div>
+
+        <div class="row g-0 sample-wrapper">
+            <!-- Left Side: Contact Info -->
+            <div class="col-lg-5 contact-info-panel">
+                <div class="contact-info-content">
+                    <h3>Contact Information</h3>
+                    <p>We're here to help! Reach out to us for any queries or support regarding your delivery or our products.</p>
+                    
+                    <div class="info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <strong>Our Farm Address</strong>
+                            <span>H No 3-55, Chintapatla, Yacharam, Rangareddy, Telangana, 501509</span>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-phone-alt"></i>
+                        <div>
+                            <strong>Call Us</strong>
+                            <span>+91 8519813219</span>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <strong>Email Us</strong>
+                            <span>Taazafarmproducts@gmail.com</span>
+                        </div>
+                    </div>
+                    
+                    <div class="social-icons">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side: Form -->
+            <div class="col-lg-7 form-panel">
+                <!-- ✅ FormSubmit integration -->
+                 <form action="https://formsubmit.co/taazafarmproducts@gmail.com" method="POST">
+                    <h4>Request Your Free Sample</h4>
+                    
+                    <!-- Hidden fields for customization -->
+                    <input type="hidden" name="_subject" value="New Sample Request!">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_template" value="table">
+                    <input type="hidden" name="_next" value="/pages/thank-you.html">
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label for="sample-name" class="form-label">Full Name</label>
+                            <input type="text" class="form-control" id="sample-name" name="Full Name" placeholder="Enter your name" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="sample-phone" class="form-label">Phone Number</label>
+                            <input type="tel" class="form-control" id="sample-phone" name="Phone Number" placeholder="Mobile" required>
+                        </div>
+                        <div class="col-12">
+                            <label for="sample-address" class="form-label">Delivery Address</label>
+                            <textarea class="form-control" id="sample-address" name="Delivery Address" rows="3" placeholder="Your complete delivery address" required></textarea>
+                        </div>
+                        <div class="col-12">
+                            <label for="sample-product" class="form-label">Choose a Sample</label>
+                            <select class="form-select" id="sample-product" name="Sample Product" required>
+                                <option selected disabled value="">Select a product...</option>
+                                <option>Farm Fresh Milk (250ml)</option>
+                                <option>Natural Yogurt (100g)</option>
+                                <option>Artisan Cheese (50g sample)</option>
+                                <option>Aromatic Ghee (50g sample)</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-submit-sample">Request My Sample</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+    <footer class="site-footer">
+        <div class="footer-aurora"></div>
+        <div class="container">
+            <div class="footer-main">
+                <div class="row g-5">
+                    <div class="col-lg-4 col-md-12">
+                        <div class="footer-widget">
+                            <a class="footer-brand" href="#home">
+                                <div class="logo">
+                                    <img src="assets/images/taazalogo1.png" alt="Taaza Logo">
+                                </div>
+                                Taaza Products
+                            </a>
+                            <p class="footer-tagline">From our farm to your family, delivering purity and freshness you can trust since 1985.</p>
+                            <div class="footer-social">
+                                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                                <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-2 col-md-4 col-6">
+                        <div class="footer-widget">
+                            <h5 class="widget-title">Quick Links</h5>
+                            <ul class="footer-links">
+                                <li><a href="#home">Home</a></li>
+                                <li><a href="#about">About Us</a></li>
+                                <li><a href="#products">Products</a></li>
+                                <li><a href="#services">Services</a></li>
+                                <li><a href="#plans">Plans</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-4 col-6">
+                        <div class="footer-widget">
+                            <h5 class="widget-title">Contact Us</h5>
+                            <ul class="footer-contact">
+                                <li><i class="fas fa-map-marker-alt"></i> <span>H No 3-55, Chintapatla, Yacharam, Rangareddy,, Telangana, 501509</span></li>
+                                <li><i class="fas fa-phone-alt"></i> <span>+91 8519813219</span></li>
+                                <li><i class="fas fa-envelope"></i> <span>Taazafarmproducts@gmail.com</span></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-4">
+                        <div class="footer-widget">
+                            <h5 class="widget-title">Business Hours</h5>
+                            <ul class="footer-hours">
+                                <li>Mon - Sat: <span>6:00 AM - 8:00 PM</span></li>
+                                <li>Sunday: <span>7:00 AM - 1:00 PM</span></li>
+                                <li><small>(Online Support 24/7)</small></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Taaza Products. All Rights Reserved.</p>
+                <div class="bottom-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function animateCounters() {
+            const counters = document.querySelectorAll('.counter');
+            counters.forEach(counter => {
+                const target = parseInt(counter.dataset.target);
+                const increment = target / 100;
+                let current = 0;
+                
+                const updateCounter = () => {
+                    if (current < target) {
+                        current += increment;
+                        counter.textContent = Math.ceil(current).toLocaleString() + '+';
+                        setTimeout(updateCounter, 50);
+                    } else {
+                        counter.textContent = target.toLocaleString() + '+';
+                    }
+                };
+                
+                updateCounter();
+            });
+        }
+
+        // Initialize animations when page loads
+        window.addEventListener('load', () => {
+            setTimeout(animateCounters, 1000);
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Active nav link on scroll
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            let currentSection = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                if (window.scrollY >= sectionTop) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${currentSection}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                
+                if (targetSection) {
+                    const navbarHeight = document.querySelector('.navbar').offsetHeight;
+                    const targetPosition = targetSection.offsetTop - navbarHeight;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+
+                // Close mobile menu after click
+                const navbarCollapse = document.querySelector('.navbar-collapse');
+                const bsCollapse = new bootstrap.Collapse(navbarCollapse, {
+                    toggle: false
+                });
+                bsCollapse.hide();
+            });
+        });
+
+        // Add interactive hover effects
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px) scale(1.05)';
+            });
+            
+            btn.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Parallax effect for image
+        document.addEventListener('mousemove', (e) => {
+            const heroImage = document.querySelector('.hero-main-image');
+            const rect = heroImage.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width - 0.5;
+            const y = (e.clientY - rect.top) / rect.height - 0.5;
+            
+            heroImage.style.transform = `perspective(1000px) rotateY(${x * 10}deg) rotateX(${y * -10}deg) scale(1.02)`;
+        });
+    </script>
+</body>
+</html>
