@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thank You - Taaza Farm Products</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(135deg, #3f91ef, #6ba8f5);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #fff;
+      text-align: center;
+    }
+    .thankyou-card {
+      background: #fff;
+      color: #333;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.2);
+      max-width: 500px;
+      width: 100%;
+      animation: fadeIn 0.8s ease-in-out;
+    }
+    .thankyou-card h1 {
+      font-size: 2.2rem;
+      margin-bottom: 15px;
+      color: #3f91ef;
+    }
+    .thankyou-card p {
+      font-size: 1.1rem;
+      margin-bottom: 25px;
+    }
+    .btn-back {
+      background: #3f91ef;
+      color: #fff;
+      font-size: 1rem;
+      padding: 10px 25px;
+      border-radius: 30px;
+      border: none;
+      transition: all 0.3s ease;
+    }
+    .btn-back:hover {
+      background: #2c7dd6;
+      transform: scale(1.05);
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="thankyou-card">
+    <h1>🎉 Thank You!</h1>
+    <p>Your sample request has been received successfully.<br>We’ll deliver freshness to your doorstep soon!</p>
+    <button onclick="goBack()" class="btn-back">⬅ Back</button>
+  </div>
+
+  <script>
+    function goBack() {
+      if (document.referrer) {
+        window.location.href = document.referrer; // go back to previous page
+      } else {
+        window.location.href = "/"; // fallback to home if no referrer
+      }
+    }
+  </script>
+</body>
+</html>
