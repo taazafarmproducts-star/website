@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: http://taazaproducts.in/sitemap.xml
